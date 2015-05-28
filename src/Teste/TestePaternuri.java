@@ -11,6 +11,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 import Clase.Client;
+import Clase.Factura;
 import Clase.Produs;
 import Exceptii.CantitateException;
 import Exceptii.ClientInexistentException;
@@ -26,6 +27,7 @@ import Patterns.Facade;
 public class TestePaternuri {
 	
 	Client c;
+	
 	public TestePaternuri() {
 	}
 
@@ -214,8 +216,9 @@ public class TestePaternuri {
 		double cantitati[] = new double[2];
 		cantitati[0]= 2;
 		cantitati[1]= 1;
-		f.intocmesteFactura(100, 222, coduri, cantitati);
+		Factura fa = f.intocmesteFactura(100, 222, coduri, cantitati);
 		assertNotNull(f);
+		System.out.println("Clientul de pe factura este: "+fa.getClient().toString()+ "Totalul facturii este: "+fa.getTotal());
 	}
 	
 	@Test
