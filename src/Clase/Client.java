@@ -9,7 +9,7 @@ public class Client {
 	String iban;
 	String banca;
 	
-	//TEST GIT 
+	//TEST GIT2
 	
 	
 	
