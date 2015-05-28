@@ -1,0 +1,3 @@
+111,Produs1,Bucati,50,100
+222,Produs2,MP,35,50
+333,Produs3,kg,10,400
