@@ -1,7 +1,6 @@
 package Patterns;
 
 import Clase.Client;
-import Clase.Factura;
 import Exceptii.CuiIncorectException;
 import Exceptii.IbanIncorectException;
 import Exceptii.NumarRegistrulComertuluiGresitException;

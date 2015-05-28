@@ -1,6 +1,5 @@
 package Clase;
 
-import Exceptii.NumarRegistrulComertuluiGresitException;
 
 public class Client implements IVerificariClient {
 	int codClient;
@@ -74,7 +73,7 @@ public class Client implements IVerificariClient {
 	public String toString() {
 		return "Client codClient " + codClient + ", denumire=" + denumire
 				+ ", CUI " + CUI + ", nrRC " + nrRC + ", adresa " + adresa
-				+ ", iban " + iban + ", banca " + banca+"/n";
+				+ ", iban " + iban + ", banca " + banca+"\n";
 	}
 
 
@@ -114,13 +113,19 @@ public class Client implements IVerificariClient {
 						for(int j = 9; j<13;j++)
 							if(Character.isDigit(nrrc.charAt(j)))
 								corect = true;
-							else
+							else{
 								corect = false;
-					else
+								break;
+							}
+					else{
 						corect = false;
-				else
+						break;
+					}
+				else{
 					corect = false;
-		}
+					break;
+				}
+			}
 		
 		return corect;
 	}

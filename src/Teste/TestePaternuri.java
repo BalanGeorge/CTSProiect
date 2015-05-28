@@ -1,13 +1,16 @@
 package Teste;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.fail;
 
 import java.util.ArrayList;
 
+import org.junit.After;
+import org.junit.Before;
 import org.junit.Test;
 
 import Clase.Client;
-import Clase.Factura;
 import Clase.Produs;
 import Exceptii.CantitateException;
 import Exceptii.ClientInexistentException;
@@ -21,15 +24,30 @@ import Patterns.Depozit;
 import Patterns.Facade;
 
 public class TestePaternuri {
+	
+	Client c;
+	public TestePaternuri() {
+	}
 
+	@Before
+	public final void setUp()
+	{
+		System.out.println("\nsetUp unit test");
+	}
+	
+	@After
+	public void tearDown() throws Exception {
+		System.out.println("Test efectuat cu succes");
+	}
+	
 	@Test
 	public void testBuilderCORECT() throws NumarRegistrulComertuluiGresitException, IbanIncorectException {
-		Client c;
 		try {
 			c = new ClientBuilder().Cod(123).Adresa("Bucuresti 12").Banca("BCR")
 					.Cui("852456").Denumire("Delta").Iban("RO23RNCB1231234545877891")
 					.NrRegistrulComertului("J39/4568/2001")
 					.build();
+			System.out.println(c.toString());
 			assertNotNull(c);
 		} catch (CuiIncorectException e) {
 			System.out.println(e.getMessage());
@@ -39,7 +57,6 @@ public class TestePaternuri {
 	
 	@Test
 	public void testBuilderFAIL1() throws NumarRegistrulComertuluiGresitException, IbanIncorectException {
-		Client c;
 		try {
 			c = new ClientBuilder().Cod(123).Adresa("Bucuresti 12").Banca("BCR")
 					.Cui("8L4456").Denumire("Delta").Iban("RO23RNCB1231234545877891")
@@ -54,7 +71,6 @@ public class TestePaternuri {
 	
 	@Test
 	public void testBuilderFAIL2() throws NumarRegistrulComertuluiGresitException, IbanIncorectException {
-		Client c;
 		try {
 			c = new ClientBuilder().Cod(123).Adresa("Bucuresti 12").Banca("BCR")
 					.Cui("8656").Denumire("Delta").Iban("RO23RNCB1231234545877891")
@@ -69,7 +85,6 @@ public class TestePaternuri {
 	
 	@Test
 	public void testBuilderFAIL3() {
-		Client c;
 		try {
 			c = new ClientBuilder().Cod(123).Adresa("Bucuresti 12").Banca("BCR")
 					.Cui("862256").Denumire("Delta").Iban("RO23RNCB12312345L5877891")
@@ -88,7 +103,6 @@ public class TestePaternuri {
 	
 	@Test
 	public void testBuilderFAIL4() {
-		Client c;
 		try {
 			c = new ClientBuilder().Cod(123).Adresa("Bucuresti 12").Banca("BCR")
 					.Cui("862256").Denumire("Delta").Iban("ROC3RNCB1231234555877891")
@@ -106,7 +120,6 @@ public class TestePaternuri {
 	}
 	@Test
 	public void testBuilderFAIL5() {
-		Client c;
 		try {
 			c = new ClientBuilder().Cod(123).Adresa("Bucuresti 12").Banca("BCR")
 					.Cui("862256").Denumire("Delta").Iban("7OC3RNCB1231234555877891")
@@ -125,7 +138,6 @@ public class TestePaternuri {
 	
 	@Test
 	public void testBuilderFAIL6() {
-		Client c;
 		try {
 			c = new ClientBuilder().Cod(123).Adresa("Bucuresti 12").Banca("BCR")
 					.Cui("862256").Denumire("Delta").Iban("RO23RNCB123123455877891")
@@ -140,6 +152,57 @@ public class TestePaternuri {
 			System.out.println(e.getMessage());
 		}
 		
+	}
+	
+	@Test
+	public void testBuilderFAIL7() {
+		try {
+			c = new ClientBuilder().Cod(123).Adresa("Bucuresti 12").Banca("BCR")
+					.Cui("862256").Denumire("Delta").Iban("RO23RNCB1231234545877891")
+					.NrRegistrulComertului("J70/4568/2001")
+					.build();
+			assertNotNull("Numar de inregistrare RC cod judet invalid",c);
+		} catch (CuiIncorectException e) {
+			System.out.println(e.getMessage());
+		} catch (NumarRegistrulComertuluiGresitException e) {
+			System.out.println(e.getMessage());
+		} catch (IbanIncorectException e) {
+			System.out.println(e.getMessage());
+		}
+	}
+	
+	@Test
+	public void testBuilderFAIL8() {
+		try {
+			c = new ClientBuilder().Cod(123).Adresa("Bucuresti 12").Banca("BCR")
+					.Cui("862256").Denumire("Delta").Iban("RO23RNCB1231234545877891")
+					.NrRegistrulComertului("J20.4568/2001")
+					.build();
+			assertNotNull("Numar de inregistrare RC separator gresit",c);
+		} catch (CuiIncorectException e) {
+			System.out.println(e.getMessage());
+		} catch (NumarRegistrulComertuluiGresitException e) {
+			System.out.println(e.getMessage());
+		} catch (IbanIncorectException e) {
+			System.out.println(e.getMessage());
+		}
+	}
+	
+	@Test
+	public void testBuilderFAIL9() {
+		try {
+			c = new ClientBuilder().Cod(123).Adresa("Bucuresti 12").Banca("BCR")
+					.Cui("862256").Denumire("Delta").Iban("RO23RNCB1231234545877891")
+					.NrRegistrulComertului("J20/45B8/2001")
+					.build();
+			assertNotNull("Numar de inregistrare RC separator gresit",c);
+		} catch (CuiIncorectException e) {
+			System.out.println(e.getMessage());
+		} catch (NumarRegistrulComertuluiGresitException e) {
+			System.out.println(e.getMessage());
+		} catch (IbanIncorectException e) {
+			System.out.println(e.getMessage());
+		}
 	}
 	
 	@Test

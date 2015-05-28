@@ -1,8 +1,6 @@
 package Clase;
 
-import java.io.BufferedWriter;
-import java.io.FileWriter;
-import java.io.IOException;
+import Exceptii.CantitateException;
 
 public class Produs {
 	private int codProdus;
@@ -11,14 +9,17 @@ public class Produs {
 	private double pret;
 	private double stoc;
 	
-	public Produs(int codProdus, String denumire, String um, float pret,
-			float cantitateDisponibila) {
+	public Produs(int codProdus, String denumire, String um, double pret,
+			double cantitateDisponibila) throws CantitateException {
 		super();
 		this.codProdus = codProdus;
 		this.denumire = denumire;
 		this.um = um;
 		this.pret = pret;
-		this.stoc = cantitateDisponibila;
+		if(Produs.checkStoc(cantitateDisponibila))
+			this.stoc = cantitateDisponibila;
+		else
+			throw new CantitateException();
 	}
 	public Produs(){};
 	public int getCodProdus() {
@@ -60,6 +61,16 @@ public class Produs {
 	public void setStoc(double cantitateDisponibila) {
 		this.stoc = cantitateDisponibila;
 	}
+	
+	public static boolean checkStoc(double stoc){
+		boolean ok = false;
+		if(stoc<=0)
+			ok = false;
+		else
+			ok = true;
+		return ok;
+	}
+
 	@Override
 	public String toString() {
 		return "codProdus " + codProdus + ", " + denumire

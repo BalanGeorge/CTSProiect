@@ -5,7 +5,6 @@ import java.util.Date;
 
 import Clase.Client;
 import Clase.Factura;
-import Clase.Produs;
 import Exceptii.CantitateException;
 import Exceptii.ClientInexistentException;
 import Exceptii.NumarDeParametriException;

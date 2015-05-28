@@ -1,6 +1,5 @@
 package Clase;
 
-import Exceptii.NumarRegistrulComertuluiGresitException;
 
 public interface IVerificariClient {
 	public boolean cuiCorect(String cui);

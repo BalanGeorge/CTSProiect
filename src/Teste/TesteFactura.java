@@ -1,27 +1,35 @@
 package Teste;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertNull;
 
-import java.io.IOException;
-import java.util.ArrayList;
-
+import org.junit.After;
+import org.junit.Before;
 import org.junit.Test;
 
 import Clase.Client;
 import Clase.Factura;
-import Clase.Produs;
 import Clase.RandFactura;
-import Patterns.Depozit;
 
 public class TesteFactura {
 	
-	Client c = new Client(44,"Alfa SA","456789","J39/45/2000","Florilor","RO65RNCB456789789","BCR");
-	Factura f= new Factura(10,c);
+	Client c = null;
+	Factura f= null;
+	
+	@Before
 	public final void setUp()
 	{
 		System.out.println("setUp unit test");
+		c = new Client(44,"Alfa SA","456789","J39/45/2000","Florilor","RO65RNCB456789789","BCR");
+		f= new Factura(10,c);
 	}
-
+	
+	@After
+	public void tearDown() throws Exception {
+		System.out.println("Test efectuat cu succes");
+	}
 	@Test
 	public void testAddProdus() {
 		f.addProdus(111,50.0);

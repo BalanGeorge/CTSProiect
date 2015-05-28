@@ -7,7 +7,6 @@ import java.io.IOException;
 import java.util.ArrayList;
 
 import Clase.Client;
-import Clase.Factura;
 import Clase.Produs;
 
 public class Depozit {
