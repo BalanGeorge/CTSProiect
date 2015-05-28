@@ -47,7 +47,6 @@ public class Depozit {
 				p.setPret(Double.parseDouble(cuvinte[3]));
 				p.setStoc(Double.parseDouble(cuvinte[4]));
 				produse.add(p);
-				System.out.println(p.toString());
 			}
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
@@ -73,7 +72,6 @@ public class Depozit {
 				p.setIban(c[5]);
 				p.setBanca(c[6]);
 				clienti.add(p);
-				System.out.println(p.toString());
 			}
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();

@@ -12,7 +12,9 @@ import Clase.Produs;
 import Exceptii.CantitateException;
 import Exceptii.ClientInexistentException;
 import Exceptii.CuiIncorectException;
+import Exceptii.IbanIncorectException;
 import Exceptii.NumarDeParametriException;
+import Exceptii.NumarRegistrulComertuluiGresitException;
 import Exceptii.ProdusInexistentException;
 import Patterns.ClientBuilder;
 import Patterns.Depozit;
@@ -21,7 +23,7 @@ import Patterns.Facade;
 public class TestePaternuri {
 
 	@Test
-	public void testBuilder() {
+	public void testBuilderCORECT() throws NumarRegistrulComertuluiGresitException, IbanIncorectException {
 		Client c;
 		try {
 			c = new ClientBuilder().Cod(123).Adresa("Bucuresti 12").Banca("BCR")
@@ -30,8 +32,112 @@ public class TestePaternuri {
 					.build();
 			assertNotNull(c);
 		} catch (CuiIncorectException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			System.out.println(e.getMessage());
+		}
+		
+	}
+	
+	@Test
+	public void testBuilderFAIL1() throws NumarRegistrulComertuluiGresitException, IbanIncorectException {
+		Client c;
+		try {
+			c = new ClientBuilder().Cod(123).Adresa("Bucuresti 12").Banca("BCR")
+					.Cui("8L4456").Denumire("Delta").Iban("RO23RNCB1231234545877891")
+					.NrRegistrulComertului("J39/4568/2001")
+					.build();
+			assertNotNull(c);
+		} catch (CuiIncorectException e) {
+			System.out.println(e.getMessage());
+		}
+		
+	}
+	
+	@Test
+	public void testBuilderFAIL2() throws NumarRegistrulComertuluiGresitException, IbanIncorectException {
+		Client c;
+		try {
+			c = new ClientBuilder().Cod(123).Adresa("Bucuresti 12").Banca("BCR")
+					.Cui("8656").Denumire("Delta").Iban("RO23RNCB1231234545877891")
+					.NrRegistrulComertului("J39/4568/2001")
+					.build();
+			assertNotNull(c);
+		} catch (CuiIncorectException e) {
+			System.out.println(e.getMessage());
+		}
+		
+	}
+	
+	@Test
+	public void testBuilderFAIL3() {
+		Client c;
+		try {
+			c = new ClientBuilder().Cod(123).Adresa("Bucuresti 12").Banca("BCR")
+					.Cui("862256").Denumire("Delta").Iban("RO23RNCB12312345L5877891")
+					.NrRegistrulComertului("J39/4568/2001")
+					.build();
+			assertNotNull("Iban cu litera",c);
+		} catch (CuiIncorectException e) {
+			System.out.println(e.getMessage());
+		} catch (NumarRegistrulComertuluiGresitException e) {
+			System.out.println(e.getMessage());
+		} catch (IbanIncorectException e) {
+			System.out.println(e.getMessage());
+		}
+		
+	}
+	
+	@Test
+	public void testBuilderFAIL4() {
+		Client c;
+		try {
+			c = new ClientBuilder().Cod(123).Adresa("Bucuresti 12").Banca("BCR")
+					.Cui("862256").Denumire("Delta").Iban("ROC3RNCB1231234555877891")
+					.NrRegistrulComertului("J39/4568/2001")
+					.build();
+			assertNotNull("Iban cu litera dupa RO",c);
+		} catch (CuiIncorectException e) {
+			System.out.println(e.getMessage());
+		} catch (NumarRegistrulComertuluiGresitException e) {
+			System.out.println(e.getMessage());
+		} catch (IbanIncorectException e) {
+			System.out.println(e.getMessage());
+		}
+		
+	}
+	@Test
+	public void testBuilderFAIL5() {
+		Client c;
+		try {
+			c = new ClientBuilder().Cod(123).Adresa("Bucuresti 12").Banca("BCR")
+					.Cui("862256").Denumire("Delta").Iban("7OC3RNCB1231234555877891")
+					.NrRegistrulComertului("J39/4568/2001")
+					.build();
+			assertNotNull("Iban fara R",c);
+		} catch (CuiIncorectException e) {
+			System.out.println(e.getMessage());
+		} catch (NumarRegistrulComertuluiGresitException e) {
+			System.out.println(e.getMessage());
+		} catch (IbanIncorectException e) {
+			System.out.println(e.getMessage());
+		}
+		
+	}
+	
+	@Test
+	public void testBuilderFAIL6() {
+		Client c;
+		try {
+			c = new ClientBuilder().Cod(123).Adresa("Bucuresti 12").Banca("BCR")
+					.Cui("862256").Denumire("Delta").Iban("RO23RNCB123123455877891")
+					.NrRegistrulComertului("J39/4568/2001")
+					.build();
+			assertNotNull("Iban scurt",c);
+		} catch (CuiIncorectException e) {
+			System.out.println(e.getMessage());
+		} catch (NumarRegistrulComertuluiGresitException e) {
+			System.out.println(e.getMessage());
+		} catch (IbanIncorectException e) {
+			System.out.println(e.getMessage());
 		}
 		
 	}

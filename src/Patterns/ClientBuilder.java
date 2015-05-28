@@ -3,6 +3,8 @@ package Patterns;
 import Clase.Client;
 import Clase.Factura;
 import Exceptii.CuiIncorectException;
+import Exceptii.IbanIncorectException;
+import Exceptii.NumarRegistrulComertuluiGresitException;
 
 public class ClientBuilder implements IBuilder {
 	
@@ -29,8 +31,11 @@ public class ClientBuilder implements IBuilder {
 		return this;
 	}
 	
-	public ClientBuilder NrRegistrulComertului(String rc){
-		this.client.setNrRC(rc);
+	public ClientBuilder NrRegistrulComertului(String rc) throws NumarRegistrulComertuluiGresitException{
+		if(client.nrRcCorect(rc))
+			this.client.setNrRC(rc);
+		else
+			throw new NumarRegistrulComertuluiGresitException();
 		return this;
 	}
 	
@@ -38,8 +43,11 @@ public class ClientBuilder implements IBuilder {
 		this.client.setAdresa(ads);
 		return this;
 	}
-	public ClientBuilder Iban(String iban){
-		this.client.setIban(iban);
+	public ClientBuilder Iban(String iban) throws IbanIncorectException{
+		if(client.ibanCorect(iban))
+			this.client.setIban(iban);
+		else
+			throw new IbanIncorectException();
 		return this;
 	}
 	

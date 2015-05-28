@@ -87,8 +87,10 @@ public class Client implements IVerificariClient {
 			for(int i = 0; i<6;i++)
 				if(Character.isDigit(cui.charAt(i)))
 					corect = true;
-				else
+				else{
 					corect = false;
+					break;
+				}
 		return corect;
 	}
 
@@ -132,16 +134,19 @@ public class Client implements IVerificariClient {
 					&& Character.isDigit(iban.charAt(3)) && Character.isLetter(iban.charAt(4))
 					&& Character.isLetter(iban.charAt(5))
 					&& Character.isLetter(iban.charAt(6))
-					&& Character.isLetter(iban.charAt(7)))
+					&& Character.isLetter(iban.charAt(7))){
 				for(int i = 8; i<24;i++)
 					if(Character.isDigit(iban.charAt(i)))
 						corect = true;
-					else
+					else{
 						corect = false;
+						break;
+					}
+			}
 			else
 				corect = false;
 		}
-		return false;
+		return corect;
 	}
 	
 	
