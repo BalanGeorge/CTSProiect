@@ -23,7 +23,7 @@ public class Factura {
 		this.numarFactura = numarFactura;
 		this.client = client;
 		this.produse = new ArrayList<RandFactura>();
-		this.data = new Date(); ////////////
+		this.data = new Date(); 
 		this.total = 0;
 	}
 	public Factura(int numarFactura){

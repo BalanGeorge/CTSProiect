@@ -65,19 +65,4 @@ public class Produs {
 		return "codProdus " + codProdus + ", " + denumire
 				+ ", " + um + ", pret " + pret ;
 	}
-	
-	public void scrieFisier(String fisier, Produs p){
-		try {
-			BufferedWriter out;
-			out = new BufferedWriter(new FileWriter("ListaProduse.txt"));
-			String cod = Integer.toString(p.getCodProdus());
-			String pret = Double.toString(p.pret);
-			String stoc = Double.toString(p.stoc);
-			out.append( "\n" + cod+","+ p.denumire +","+p.um+","+pret+","+stoc);
-			out.close();
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-	}
 }

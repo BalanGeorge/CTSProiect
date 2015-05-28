@@ -2,6 +2,7 @@ package Patterns;
 
 import Clase.Client;
 import Clase.Factura;
+import Exceptii.CuiIncorectException;
 
 public class ClientBuilder implements IBuilder {
 	
@@ -21,8 +22,10 @@ public class ClientBuilder implements IBuilder {
 		return this;
 	}
 	
-	public ClientBuilder Cui(String cui){
-		this.client.setCUI(cui);
+	public ClientBuilder Cui(String cui) throws CuiIncorectException{
+		if(client.cuiCorect(cui))
+			this.client.setCUI(cui);
+		else throw new CuiIncorectException();
 		return this;
 	}
 	

@@ -11,6 +11,7 @@ import Clase.Factura;
 import Clase.Produs;
 import Exceptii.CantitateException;
 import Exceptii.ClientInexistentException;
+import Exceptii.CuiIncorectException;
 import Exceptii.NumarDeParametriException;
 import Exceptii.ProdusInexistentException;
 import Patterns.ClientBuilder;
@@ -21,11 +22,18 @@ public class TestePaternuri {
 
 	@Test
 	public void testBuilder() {
-		Client c = new ClientBuilder().Cod(123).Adresa("Bucuresti 12").Banca("BCR")
-				.Cui("852456").Denumire("Delta").Iban("RO23RNCB1231234545877891")
-				.NrRegistrulComertului("J39/4568/2001")
-				.build();
-		assertNotNull(c);
+		Client c;
+		try {
+			c = new ClientBuilder().Cod(123).Adresa("Bucuresti 12").Banca("BCR")
+					.Cui("852456").Denumire("Delta").Iban("RO23RNCB1231234545877891")
+					.NrRegistrulComertului("J39/4568/2001")
+					.build();
+			assertNotNull(c);
+		} catch (CuiIncorectException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
 	}
 	
 	@Test
@@ -119,14 +127,14 @@ public class TestePaternuri {
 		double cantitati[] = new double[3];
 		cantitati[0]= 2;
 		cantitati[1]= 1;
+		cantitati[2]= 1;
 		try {
 			f.intocmesteFactura(100, 222, coduri, cantitati);
-			//fail("numar de parametri gresit");
-			assertFalse("numar de parametri gresit", false);
+			fail("numar de parametri gresit");
 		} catch (CantitateException e) {
 			System.out.println(e.getMessage());
 		} catch (NumarDeParametriException e) {
-			//System.out.println(e.getMessage());
+			System.out.println(e.getMessage());
 			assertTrue(true);
 		} catch (ClientInexistentException e) {
 			System.out.println(e.getMessage());
