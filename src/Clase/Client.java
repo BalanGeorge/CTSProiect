@@ -9,6 +9,8 @@ public class Client {
 	String iban;
 	String banca;
 	
+	//TEST GIT
+	
 	
 	
 	public Client(int codClient, String denumire, String cUI, String nrRC,
